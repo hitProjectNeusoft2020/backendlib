@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hotel.manage.mapper.IAdminMapper">
+
+	<resultMap id="AdminResultMap" type="Admin" >
+		<id property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="passwd" column="PASSWD"/>
+		<result property="cernum" column="CERNUM"/>
+		<result property="superPower" column="SUPER"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="Admin" >
+		insert into admin (ID,NAME, PASSWD, CERNUM, SUPER) values (#{id},#{name},#{passwd},#{cernum},#{superPower})
+ 	</insert>
+	
+
+ 	<update id="update" parameterType="Admin">
+ 	update  admin set NAME=#{name},PASSWD=#{passwd},CERNUM=#{cernum},SUPER=#{superPower} where ID=#{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="Admin">
+ 	delete from admin  where ID=#{id} 
+ 	</delete>
+ 	
+ 	<select id="selectById"  resultMap="AdminResultMap">
+ 	select *  from admin where ID = #{id}
+ 	</select>
+ 	
+ 	<select id="selectByAll"  resultMap="AdminResultMap">
+ 	select *  from admin
+ 	</select>
+
+
+</mapper>
+

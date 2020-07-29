@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hotel.manage.mapper.IRoomTypeMapper">
+
+	<resultMap id="RoomTypeResultMap" type="RoomType" >
+		<id property="roomType" column="ROOMTYPE"/>
+		<result property="size" column="SIZE"/>
+		<result property="level" column="LEVEL"/>
+		<result property="price" column="PRICE"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="RoomType" >
+		insert into roomtype (ROOMTYPE,SIZE,LEVEL,PRICE) values (#{roomType},#{size},#{level},#{price})
+ 	</insert>
+	
+
+ 	<update id="update" parameterType="RoomType">
+ 	update  roomtype set SIZE=#{size},LEVEL=#{level},PRICE=#{price} where ROOMTYPE=#{roomType}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="RoomType">
+ 	delete from roomtype  where ROOMTYPE=#{roomType} 
+ 	</delete>
+ 	
+ 	<select id="selectById"  resultMap="RoomTypeResultMap">
+ 	select *  from roomtype where ROOMTYPE=#{roomType}
+ 	</select>
+ 	
+ 	<select id="selectByAll"  resultMap="RoomTypeResultMap">
+ 	select *  from roomtype
+ 	</select>
+
+
+</mapper>
+

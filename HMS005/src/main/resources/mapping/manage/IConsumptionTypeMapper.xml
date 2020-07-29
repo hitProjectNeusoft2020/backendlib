@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hotel.manage.mapper.IConsumptionTypeMapper">
+
+	<resultMap id="ConsumptionTypeResultMap" type="ConsumptionType" >
+		<id property="id" column="ID"/>
+		<result property="type" column="TYPE"/>
+		<result property="cost" column="COST"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="ConsumptionType" >
+		insert into consumptiontype (ID,TYPE,COST) values (#{id},#{type},#{cost})
+ 	</insert>
+	
+
+ 	<update id="update" parameterType="ConsumptionType" >
+ 	update  consumptiontype set TYPE=#{type},COST=#{cost} where ID=#{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="ConsumptionType" >
+ 	delete from consumptiontype  where ID=#{id} 
+ 	</delete>
+ 	
+ 	<select id="selectById"  resultMap="ConsumptionTypeResultMap">
+ 	select *  from consumptiontype where ID = #{id}
+ 	</select>
+ 	
+ 	<select id="selectByAll"  resultMap="ConsumptionTypeResultMap">
+ 	select *  from consumptiontype
+ 	</select>
+
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.hotel.manage.mapper.IRoomMapper">
+
+	<resultMap id="RoomResultMap" type="Room" >
+		<id property="id" column="ID"/>
+		<result property="roomState" column="ROOMSTATE"/>
+		<!--  
+		<result property="roomType" column="ROOMTYPE"/> 
+		-->
+		<result property="remark" column="REMARK"/>
+	</resultMap>
+	
+	<!-- 关联房屋类型的结果映射 -->
+	<resultMap id="RoomMessageResultMap" type="Room" extends="RoomResultMap" >
+
+		<association property="roomTypeModel" resultMap="com.neusoft.hotel.manage.mapper.IRoomTypeMapper.RoomTypeResultMap" />
+	</resultMap>
+	
+	
+	<insert id="insert" parameterType="Room" >
+		insert into room (ID,ROOMSTATE,ROOMTYPE,REMARK) 
+		values (#{id},#{roomState},#{roomTypeModel.roomType},#{remark})
+ 	</insert>
+	
+
+ 	<update id="update" parameterType="Room">
+ 		update  room set ROOMSTATE=#{roomState},ROOMTYPE=#{roomTypeModel.roomType},REMARK=#{remark} 
+ 		where ID=#{id}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="Room">
+ 		delete from room  where ID=#{id} 
+ 	</delete>
+ 	
+ 	<!-- ======================连接查询====================== -->
+ 	<select id="selectRoomById"  resultMap="RoomMessageResultMap">
+	 	select *  from room a inner join roomtype b on a.ROOMTYPE=b.ROOMTYPE  
+	 	where a.ID=#{id}
+ 	</select>
+ 	
+ 	<select id="selectAllRoom"  resultMap="RoomMessageResultMap">
+	 	select *  from room a inner join roomtype b on a.ROOMTYPE=b.ROOMTYPE  
+ 	</select>
+ 	
+ 	<!-- ======================动态sql 连接查询语句====================== -->
+ 	<select id="selectAvailableRoom"  resultMap="RoomMessageResultMap">
+	 	select *  from room a inner join roomtype b on a.ROOMTYPE=b.ROOMTYPE  
+	 	<where>
+		 	<if test="size!=0">
+		 		and b.SIZE=#{size}
+		 	</if>
+		 	<if test="level!=0">
+		 		and b.LEVEL=#{level}
+		 	</if>
+	 	</where>
+ 	</select>
+
+
+</mapper>
+
